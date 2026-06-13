@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HeroGen Cookie Import</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; }
+h2 { color: #333; }
+.ok { color: green; font-weight: bold; }
+.error { color: red; }
+a { color: #1a5c20; font-size: 1.1em; }
+</style>
+</head>
+<body>
+<h2>HeroGen Cookie Import</h2>
+<p id="status">Importing character data...</p>
+<script>
+function writeCookie(name, value) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + 1000 * 60 * 60 * 24 * 365);
+    // value is already in escaped form (as stored by Chrome), write it raw
+    document.cookie = name + '=' + value + '; expires=' + expires.toGMTString() + '; path=/';
+}
+
+var status = document.getElementById('status');
+var hash = window.location.hash.substring(1);
+
+if (!hash) {
+    status.innerHTML = '<span class="error">No data found in URL. Please use export_cookies.htm first.</span>';
+} else {
+    try {
+        var json = decodeURIComponent(escape(atob(hash)));
+        var data = JSON.parse(json);
+        var count = 0;
+        var names = [];
+        for (var name in data) {
+            if (Object.prototype.hasOwnProperty.call(data, name)) {
+                writeCookie(name, data[name]);
+                names.push(name);
+                count++;
+            }
+        }
+        status.innerHTML = '<span class="ok">Imported ' + count + ' cookie(s): ' + names.join(', ') + '</span><br><br>' +
+            '<a href="index.htm">Open HeroGen with your saved character &rarr;</a>';
+    } catch (e) {
+        status.innerHTML = '<span class="error">Error importing: ' + e.message + '</span>';
+    }
+}
+</script>
+</body>
+</html>

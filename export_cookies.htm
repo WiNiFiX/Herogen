@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HeroGen Cookie Export</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; }
+h2 { color: #333; }
+#link-box { margin: 16px 0; padding: 12px; background: #e8f5e9; border: 1px solid #4caf50; border-radius: 4px; display: none; }
+#link-box a { font-size: 1.1em; font-weight: bold; color: #1a5c20; }
+#raw { font-size: 0.8em; color: #666; margin-top: 20px; }
+.error { color: red; }
+.ok { color: green; }
+</style>
+</head>
+<body>
+<h2>HeroGen Cookie Export</h2>
+<p id="status">Reading cookies...</p>
+<div id="link-box">
+  <p style="margin:0 0 8px 0">Your character data was found. Click the link below to import it into the localhost version:</p>
+  <a id="import-link" href="#">Import my character into localhost</a>
+</div>
+<p id="raw"></p>
+<script>
+var cookieNames = ['info','skills','other','custom'];
+var files = 3;
+for (var i = 0; i < files; i++) {
+    cookieNames.push('info_' + i);
+    cookieNames.push('skills_' + i);
+    cookieNames.push('other_' + i);
+    cookieNames.push('custom_' + i);
+}
+
+function readCookie(name) {
+    var search = name + '=';
+    if (document.cookie.length > 0) {
+        var offset = document.cookie.indexOf(search);
+        if (offset !== -1) {
+            offset += search.length;
+            var end = document.cookie.indexOf(';', offset);
+            if (end === -1) end = document.cookie.length;
+            return document.cookie.substring(offset, end); // keep escaped form
+        }
+    }
+    return null;
+}
+
+var data = {};
+var found = [];
+for (var n = 0; n < cookieNames.length; n++) {
+    var val = readCookie(cookieNames[n]);
+    if (val !== null) {
+        data[cookieNames[n]] = val;
+        found.push(cookieNames[n]);
+    }
+}
+
+var status = document.getElementById('status');
+var raw = document.getElementById('raw');
+
+if (found.length > 0) {
+    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    var url = 'http://localhost/herogen/import_cookies.htm#' + encoded;
+    document.getElementById('import-link').href = url;
+    document.getElementById('link-box').style.display = 'block';
+    status.innerHTML = '<span class="ok">Found ' + found.length + ' saved cookie(s): ' + found.join(', ') + '</span>';
+    raw.textContent = 'Import URL length: ' + url.length + ' chars';
+} else {
+    status.innerHTML = '<span class="error">No HeroGen cookies found at this file:// location.</span><br><br>' +
+        'This means either:<br>' +
+        '&bull; Chrome blocked cookies when you last ran the file:// version (common in Chrome 80+)<br>' +
+        '&bull; The character was saved in a different browser (Firefox?)<br>' +
+        '&bull; The character was saved from the live website (ack.org)<br><br>' +
+        'All raw cookies visible here: <code>' + (document.cookie || '(none)') + '</code>';
+}
+</script>
+</body>
+</html>
