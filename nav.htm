@@ -19,32 +19,74 @@ function check_for_mutant()
 {
   var f = parent.frames[0].document.forms[0];
   if (get_species(f) == 'Mutant')
-	window.open('mutant.htm', 'mutant', 'menubar,resizable,status');
+    window.open('mutant.htm', 'mutant', 'menubar,resizable,status');
   else
     alert('You must be a mutant to view mutations!');
 }
 </script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background: #1e293b;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 4px 7px;
+  border-radius: 5px;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+a:hover {
+  color: #f1f5f9;
+  background: #334155;
+}
+.sep {
+  color: #334155;
+  font-size: 11px;
+  padding: 0 1px;
+  user-select: none;
+}
+</style>
 </head>
-<body bgcolor="white">
-<b>
-<font size="-2">
-<a href="form.htm#top"           target="form">Top</a> |
-<a href="form.htm#abilities"     target="form">Abilities</a> |
-<a href="javascript:void(0)" onClick="window.open('skills.htm', 'skills', 'resizable,status')" onMouseOver="window.status='Skills'; return true" onMouseOut="window.status=''; return true">Skills</a> |
-<a href="form.htm#perks"         target="form">Perks</a> &amp;
-<a href="form.htm#flaws"         target="form">Flaws</a> |
-<a href="form.htm#weapons"       target="form">Weapons</a> &amp;
-<a href="form.htm#armor"         target="form">Armor</a> |
-<a href="form.htm#personal_data" target="form">Personal Data</a> |
-<a href="form.htm#other"         target="form">Other</a> |
-<a href="form.htm#cyber"         target="form">Cyber Gear</a> |
-<a href="javascript:void(0)" onClick="check_for_mutant()" onMouseOver="window.status='Mutations'; return true" onMouseOut="window.status=''; return true">Mutations</a>
-<br>
-<a href="readme.htm"             target="_blank">Read Me</a> |
-<a href="herogen.zip">Download</a> |
-<a href="fonts.zip">Fonts</a> |
-<a href="mailto:heffner@ack.org?subject=HeroGen">Feedback</a>
-</font>
-</b>
+<body>
+  <a href="form.htm#top" target="form">Top</a>
+  <span class="sep">|</span>
+  <a href="form.htm#abilities" target="form">Abilities</a>
+  <span class="sep">|</span>
+  <a href="javascript:void(0)" onclick="window.open('skills.htm','skills','resizable,status')">Skills</a>
+  <span class="sep">|</span>
+  <a href="form.htm#perks" target="form">Perks</a>
+  <span class="sep">&amp;</span>
+  <a href="form.htm#flaws" target="form">Flaws</a>
+  <span class="sep">|</span>
+  <a href="form.htm#weapons" target="form">Weapons</a>
+  <span class="sep">&amp;</span>
+  <a href="form.htm#armor" target="form">Armor</a>
+  <span class="sep">|</span>
+  <a href="form.htm#personal_data" target="form">Personal Data</a>
+  <span class="sep">|</span>
+  <a href="form.htm#other" target="form">Other</a>
+  <span class="sep">|</span>
+  <a href="form.htm#cyber" target="form">Cyber Gear</a>
+  <span class="sep">|</span>
+  <a href="javascript:void(0)" onclick="check_for_mutant()">Mutations</a>
+  <span class="sep">|</span>
+  <a href="readme.htm" target="_blank">Readme</a>
+  <span class="sep">|</span>
+  <a href="fonts.zip">Fonts</a>
 </body>
 </html>

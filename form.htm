@@ -14,8 +14,129 @@
 <head>
 <script src="form.js">
 </script>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  color: #0f172a;
+  background: #f8fafc;
+  margin: 0;
+  padding: 12px 16px 20px;
+}
+table { border-collapse: collapse; }
+th {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+  padding: 4px 10px 4px 0;
+  text-align: left;
+}
+td { padding: 3px 4px; vertical-align: middle; }
+hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 14px 0;
+}
+input[type="text"] {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #0f172a;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input[type="text"]:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+select {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px 8px;
+  background: #fff;
+  color: #0f172a;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+input[type="button"] {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+  font-family: inherit;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+input[type="button"]:hover {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+  box-shadow: 0 3px 8px rgba(37,99,235,0.45);
+  transform: translateY(-1px);
+}
+input[type="button"]:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(37,99,235,0.3);
+}
+input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+  vertical-align: middle;
+}
+input[type="radio"] {
+  accent-color: #3b82f6;
+  cursor: pointer;
+  vertical-align: middle;
+}
+/* Section colour overrides — replace legacy bgcolor attrs */
+th[bgcolor="#00FF00"] {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+  padding: 6px 10px;
+  border-radius: 4px 4px 0 0;
+}
+th[bgcolor="red"] {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+  padding: 6px 10px;
+}
+th[bgcolor="#FFFF99"] {
+  background-color: #fef9c3 !important;
+  color: #854d0e !important;
+  font-weight: 500;
+}
+th[bgcolor="#999999"] {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+  padding: 8px 10px;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+th[bgcolor="#999999"] font { color: #7dd3fc !important; }
+/* Button container tables */
+table[border] { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+table[border] td { padding: 6px 8px; background: #fff; }
+</style>
 </head>
-<body bgcolor="white" onLoad="set_values(); chargen()">
+<body style="background:#f8fafc" onLoad="set_values(); chargen()">
 <form>
 <a name="top"></a>
 <table width="100%">
