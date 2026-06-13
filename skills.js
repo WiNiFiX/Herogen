@@ -8,7 +8,7 @@
 //                                                            //
 ////////////////////////////////////////////////////////////////
 
-o = parent.window.opener;
+o = window.opener;
 
 ranks = 12;
 
@@ -17,8 +17,7 @@ sk = 0;
 function load_skill_info(broad)
 {
   sk = broad;
-  set_header(broad);
-  var f = parent.frames[1].document.forms[0];
+  var f = document.forms[0];
   var p = o.parent.frames[0].document.forms[0];
   uncheck_all_broad_skills(f);
   o.get_cookies();
@@ -77,7 +76,7 @@ function load_skill_info(broad)
   a = o.get_broad_skills_and_skill_points_available(p,species,profession);
   o.broad_skills = a[0];
   o.skill_points_available = a[1];
-  //update_skill_points();
+  update_skill_points();
 }
 function get_all_skills()
 {
@@ -103,7 +102,7 @@ function get_all_skills()
 }
 function populate_entertainment()
 {
-  var f = parent.frames[1].document.forms[0];
+  var f = document.forms[0];
   o.get_cookies();
   all_skills = get_all_skills();
   var len = o.skill[5][2].length;
@@ -147,18 +146,11 @@ function populate_entertainment()
 }
 function set_header(broad)
 {
-  var d = parent.frames[0].document;
-  d.open();
-  d.writeln('<html>');
-  d.writeln('<body bgcolor="white">');
-  d.writeln('<h4>' + parent.window.opener.ability[broad] + ' Skills</h4>');
-  d.writeln('</body>');
-  d.writeln('</html>');
-  d.close();
+  // no-op: tab label displays the skill category name
 }
 function set_broad_skill_cookie(name)
 {
-  var f = parent.frames[1].document.forms[0];
+  var f = document.forms[0];
   var checked = eval('f.' + name + '.checked');
   var s = o.parent.frames[0].document.forms[0].i_2.selectedIndex;
   var x = 0;
@@ -211,7 +203,7 @@ function set_null_specialty_listboxes(name)
   var token = name.split('_');
   var x = token[1];
   var y = token[2];
-  var f = parent.frames[1].document.forms[0];
+  var f = document.forms[0];
   var checked = eval('f.' + name + '.checked');
   if (checked)
     set_specialty_listboxes(f, x, y);
@@ -244,7 +236,7 @@ function uncheck_all_broad_skills(f)
 }
 function set_specialty_skill_cookie(name)
 {
-  var f = parent.frames[1].document.forms[0];
+  var f = document.forms[0];
   var p = o.parent.frames[0].document.forms[0];
   var cookie = o.get_cookie('skills');
   var index = cookie.indexOf('\t' + name + '\t');
@@ -263,13 +255,13 @@ function set_specialty_skill_cookie(name)
   {
     var fistsOfIron = 'p_8_r';
     eval('p.' + fistsOfIron + '[0].checked = true');
-    eval('p.' + fistsOfIron + '[1].checked = false');  // I really shouldn't need to do this!?
+    eval('p.' + fistsOfIron + '[1].checked = false');
     o.set_perk_flaw_cost(fistsOfIron, false);
   }
 }
 function set_specific_specialty_skill_cookie(name)
 {
-  var f = parent.frames[1].document.forms[0];
+  var f = document.forms[0];
   var cookie = o.get_cookie('skills');
   var index = cookie.indexOf('\t' + name + '\t');
   var userText = eval('f.' + name + '.value');
@@ -282,7 +274,7 @@ function set_specific_specialty_skill_cookie(name)
 }
 function set_enhance_skill_cookie(name)
 {
-  var f = parent.frames[1].document.forms[0];
+  var f = document.forms[0];
   var cookie = o.get_cookie('skills');
   var index = cookie.indexOf('\t' + name + '\t');
   var selectedIndex = eval('f.' + name + '.selectedIndex');
@@ -322,16 +314,10 @@ function update_specialty_in_cookie(name, index, value)
 }
 function update_skill_points()
 {
-  var d = parent.frames[3].document;
-  d.open();
-  d.writeln('<html>');
-  d.writeln('<body bgcolor="white">');
-  d.write  ('<center><b><font size="-1">');
-  d.write  ('<a href="javascript:void(0)" onClick="return false" onMouseOver="window.status=\'This is the number of skill points you have spent\'; return true" onMouseOut="window.status=\'\'; return true">' + o.skill_points_spent + '</a>');
-  d.write  (' of ');
-  d.write  ('<a href="javascript:void(0)" onClick="return false" onMouseOver="window.status=\'This is the total number of skill points available\'; return true" onMouseOut="window.status=\'\'; return true">' + o.skill_points_available + '</a>');
-  d.writeln('<font size="-1"></b></center>');
-  d.writeln('</body>');
-  d.writeln('</html>');
-  d.close();
+  var el = document.getElementById('skill-points');
+  if (!el) return;
+  el.innerHTML =
+    '<a href="javascript:void(0)" title="Skill points spent">' + o.skill_points_spent + '</a>' +
+    ' of ' +
+    '<a href="javascript:void(0)" title="Total skill points available">' + o.skill_points_available + '</a>';
 }

@@ -13,15 +13,1438 @@
 <html>
 <head>
 <title>Skills</title>
-<script src="skills.js">
+<script src="skills.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 12px;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+/* ---- Tab bar ---- */
+#tab-bar {
+  display: flex;
+  align-items: center;
+  background: #1e293b;
+  padding: 6px 8px 0;
+  gap: 3px;
+  flex-wrap: nowrap;
+}
+.tab-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px 6px 0 0;
+  color: #94a3b8;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 5px 10px;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.tab-btn:hover { background: #334155; color: #f1f5f9; }
+.tab-btn.active { background: #f8fafc; color: #0f172a; font-weight: 600; }
+
+/* ---- Skill points strip ---- */
+#skill-points-bar {
+  background: #e2e8f0;
+  border-bottom: 1px solid #cbd5e1;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#skill-points-bar span.label { font-weight: 600; color: #334155; }
+#skill-points a {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+#skill-points a:hover { text-decoration: underline; }
+
+/* ---- Content area ---- */
+#content {
+  padding: 8px 10px 16px;
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+}
+
+/* ---- Skill tables ---- */
+table { border-collapse: collapse; }
+th {
+  text-align: left;
+  padding: 4px 6px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-size: 12px;
+  white-space: nowrap;
+}
+td {
+  padding: 2px 5px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+td:nth-child(4), td:nth-child(5) { text-align: center; }
+th:nth-child(4), th:nth-child(5) { text-align: center; }
+
+input[type="checkbox"] {
+  width: 14px; height: 14px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+select {
+  font-size: 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 1px 2px;
+  background: #fff;
+  color: #0f172a;
+  min-width: 38px;
+}
+input[type="text"] {
+  width: 90px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 11px;
+  font-family: inherit;
+  color: #0f172a;
+  background: #fff;
+}
+input[type="text"]:focus, select:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+/* blue skill names */
+font[color="#0066FF"] { color: #2563eb; font-weight: 600; }
+
+/* alternating row shading */
+tr.broad-row th { background: #dbeafe; }
+</style>
+<script>
+function showTab(broad) {
+  for (var i = 0; i < 6; i++) {
+    var panel = document.getElementById('panel-' + i);
+    var btn   = document.getElementById('tab-btn-' + i);
+    if (panel) panel.style.display = (i === broad) ? '' : 'none';
+    if (btn) {
+      btn.classList.toggle('active', i === broad);
+    }
+  }
+  load_skill_info(broad);
+}
+window.onload = function() { showTab(0); };
 </script>
 </head>
-<frameset rows="45,*,55" onLoad="update_skill_points()">
-<frame src="char.htm" scrolling="no">
-<frame src="skills0.htm" name="skillz">
-<frameset cols="*,120">
-<frame src="skills_n.htm" scrolling="no">
-<frame src="char.htm" scrolling="no">
-</frameset>
-</frameset>
+<body>
+
+<div id="tab-bar">
+  <button id="tab-btn-0" class="tab-btn active" onclick="showTab(0)">Strength</button>
+  <button id="tab-btn-1" class="tab-btn" onclick="showTab(1)">Dexterity</button>
+  <button id="tab-btn-2" class="tab-btn" onclick="showTab(2)">Constitution</button>
+  <button id="tab-btn-3" class="tab-btn" onclick="showTab(3)">Intelligence</button>
+  <button id="tab-btn-4" class="tab-btn" onclick="showTab(4)">Will</button>
+  <button id="tab-btn-5" class="tab-btn" onclick="showTab(5)">Personality</button>
+</div>
+
+<div id="skill-points-bar">
+  <span class="label">Skill Points:</span>
+  <span id="skill-points">—</span>
+</div>
+
+<div id="content">
+<form>
+
+<!-- ============================================================ -->
+<!-- PANEL 0 — STRENGTH                                           -->
+<!-- ============================================================ -->
+<div id="panel-0">
+<table>
+<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_0_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Armor Operation</th>
+<th>7</th><th>C</th>
+</tr>
+<tr>
+<td width=15><br></td>
+<td><select name="s_0_0_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Combat armor</td>
+<td>3</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_0_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Powered armor</font></td>
+<td>4</td><td>C</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_0_1" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Athletics</th>
+<th>3</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_1_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Climb</td>
+<td>2</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_1_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Jump</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_1_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Throw</td>
+<td>2</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_1_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_0_1_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_1_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_0_1_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_1_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_0_1_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_1_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_0_1_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_1_7" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_0_1_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_0_2" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Heavy Weapons</th>
+<th>6</th><th>C</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_2_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Direct fire</td>
+<td>4</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_2_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Indirect fire</td>
+<td>4</td><td>C</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_0_3" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Melee Weapons</th>
+<th>6</th><th>C</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_3_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Blade</td>
+<td>3</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_3_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Bludgeon</td>
+<td>3</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_3_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Powered weapon</td>
+<td>4</td><td>C</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_0_4" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Unarmed Attack</th>
+<th>5</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_4_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Brawl</td>
+<td>3</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_0_4_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Power martial arts</font></td>
+<td>5</td><td>CF</td>
+</tr>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 1 — DEXTERITY                                          -->
+<!-- ============================================================ -->
+<div id="panel-1" style="display:none">
+<table>
+<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_1_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Acrobatics</th>
+<th>7</th><th>F</th>
+</tr>
+<tr>
+<td width=15><br></td>
+<td><select name="s_1_0_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Daredevil</td>
+<td>4</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Defensive martial arts</font></td>
+<td>5</td><td>CF</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Dodge</td>
+<td>4</td><td>CF</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Fall</td>
+<td>3</td><td>F</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Flight</td>
+<td>2</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Zero-g training</font></td>
+<td>2</td><td>CT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_1_0_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_7" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_1_0_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_8" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_1_0_8_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_9" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_1_0_9_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_0_10" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_1_0_10_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_1_1" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Manipulation</th>
+<th>6</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_1_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Lockpick</td>
+<td>4</td><td>F</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_1_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Pickpocket</td>
+<td>4</td><td>F</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_1_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Prestidigitation</td>
+<td>3</td><td>D</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_1_2" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Ranged Weapons, Mod.</th>
+<th>6</th><th>C</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_2_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Pistol</td>
+<td>4</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_2_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Rifle</td>
+<td>4</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_2_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>SMG</td>
+<td>4</td><td>C</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_1_3" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Ranged Weapons, Prim.</th>
+<th>7</th><th>C</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_3_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Bow</td>
+<td>4</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_3_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Crossbow</td>
+<td>3</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_3_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Flintlock</td>
+<td>3</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_3_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Sling</td>
+<td>4</td><td>C</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_1_4" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Stealth</th>
+<th>7</th><th>F</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_4_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Hide</td>
+<td>4</td><td>F</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_4_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Shadow</td>
+<td>4</td><td>F</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_4_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Sneak</td>
+<td>5</td><td>F</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_1_5" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Vehicle Operation</th>
+<th>3</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_0_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_1_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_2_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Land vehicle: <input type="text" name="s_1_5_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Land vehicle: <input type="text" name="s_1_5_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_7" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Land vehicle: <input type="text" name="s_1_5_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_8" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Land vehicle: <input type="text" name="s_1_5_8_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_9" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Land vehicle: <input type="text" name="s_1_5_9_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_10" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_10_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_11" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_11_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_12" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_12_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_13" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_13_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_14" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_14_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_15" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Water vehicle: <input type="text" name="s_1_5_15_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_16" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Water vehicle: <input type="text" name="s_1_5_16_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_17" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Water vehicle: <input type="text" name="s_1_5_17_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_18" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Water vehicle: <input type="text" name="s_1_5_18_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_1_5_19" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Water vehicle: <input type="text" name="s_1_5_19_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 2 — CONSTITUTION                                       -->
+<!-- ============================================================ -->
+<div id="panel-2" style="display:none">
+<table>
+<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_2_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Movement</th>
+<th>3</th><th>-</th>
+</tr>
+<tr>
+<td width=15><br></td>
+<td><select name="s_2_0_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Race</font></td>
+<td>2</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_2_0_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Swim</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_2_0_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Trailblazing</td>
+<td>3</td><td>F</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_2_1" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Stamina</th>
+<th>3</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_2_1_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Endurance</td>
+<td>4</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_2_1_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Resist pain</font></td>
+<td>4</td><td>C</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_2_2" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Survival</th>
+<th>5</th><th>CF</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_2_2_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Survival training</td>
+<td>3</td><td>CF</td>
+</tr>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 3 — INTELLIGENCE                                       -->
+<!-- ============================================================ -->
+<div id="panel-3" style="display:none">
+<table>
+<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Business</th>
+<th>4</th><th>D</th>
+</tr>
+<tr>
+<td width=15><br></td>
+<td><select name="s_3_0_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Corporate</td>
+<td>3</td><td>D</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_0_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Illicit business</td>
+<td>3</td><td>DF</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_0_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Small business</td>
+<td>3</td><td>DF</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_1" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Computer Science</th>
+<th>7</th><th>T</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_1_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Hacking</font></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_1_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Hardware</td>
+<td>4</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_1_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Programming</td>
+<td>4</td><td>T</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_2" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Demolitions</th>
+<th>6</th><th>CT</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_2_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Disarm</td>
+<td>4</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_2_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Scratch-built</font></td>
+<td>4</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_2_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Set explosives</td>
+<td>3</td><td>CT</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_3" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Knowledge</th>
+<th>3</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Computer operation</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Deduce</td>
+<td>2</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">First aid</font></td>
+<td>2</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_7" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_8" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_3_3_8_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_9" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_3_3_9_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_10" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_3_3_10_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_11" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_3_3_11_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_3_12" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td><input type="text" name="s_3_3_12_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_4" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Law</th>
+<th>5</th><th>DF</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_4_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Court procedures</td>
+<td>3</td><td>D</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_4_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Law enforcement</td>
+<td>3</td><td>CF</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_4_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_3_4_2_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_4_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_3_4_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_4_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_3_4_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_4_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_3_4_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_4_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_3_4_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>1</td><td>-</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_5" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Life Science</th>
+<th>7</th><th>T</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_5_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Biology</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_5_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Botany</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_5_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Genetics</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_5_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Xenology</font></td>
+<td>4</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_5_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Zoology</td>
+<td>3</td><td>T</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_6" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Medical Science</th>
+<th>7</th><th>T</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Forensics</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Medical knowledge</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Psychology</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Surgery</font></td>
+<td>5</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Treatment</font></td>
+<td>4</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_7" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_8" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_8_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_6_9" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_9_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td>3</td><td>T</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_7" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Navigation</th>
+<th>6</th><th>T</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_7_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Astrogation, drivespace</font></td>
+<td>4</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_7_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Astrogation, system</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_7_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Navigation, surface</td>
+<td>3</td><td>T</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_8" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Physical Science</th>
+<th>7</th><th>T</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_8_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Astronomy</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_8_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Chemistry</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_8_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Physics</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_8_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Planetology</td>
+<td>3</td><td>T</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_9" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Security</th>
+<th>5</th><th>CF</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_9_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Protection protocols</td>
+<td>3</td><td>CF</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_9_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Security devices</td>
+<td>3</td><td>FT</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_10" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">System Operation</th>
+<th>4</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_10_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Communications</td>
+<td>3</td><td>DT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_10_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Defenses</td>
+<td>3</td><td>CT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_10_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Engineering</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_10_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Sensors</td>
+<td>3</td><td>FT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_10_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Weapons</td>
+<td>3</td><td>CT</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_11" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Tactics</th>
+<th>6</th><th>CT</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_11_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Infantry tactics</td>
+<td>3</td><td>C</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_11_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Space tactics</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_11_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Vehicle tactics</td>
+<td>3</td><td>CT</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_3_12" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Technical Science</th>
+<th>7</th><th>T</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_12_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Invention</td>
+<td>4</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_12_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Juryrig</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_12_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Repair</td>
+<td>3</td><td>T</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_3_12_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Technical Knowledge</td>
+<td>3</td><td>T</td>
+</tr>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 4 — WILL                                               -->
+<!-- ============================================================ -->
+<div id="panel-4" style="display:none">
+<table>
+<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_4_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Administration</th>
+<th>4</th><th>D</th>
+</tr>
+<tr>
+<td width=15><br></td>
+<td><select name="s_4_0_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Bureaucracy</td>
+<td>3</td><td>D</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_0_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Management</td>
+<td>3</td><td>D</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_4_1" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Animal Handling</th>
+<th>3</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_1_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Animal riding</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_1_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Animal training</td>
+<td>1</td><td>-</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_4_2" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Awareness</th>
+<th>3</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_2_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Intuition</td>
+<td>3</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_2_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Perception</td>
+<td>2</td><td>-</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_4_3" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Creativity</th>
+<th>4</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_3_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_3_0_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_3_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_3_1_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_3_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_3_2_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_3_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_3_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_3_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_3_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> [specific]</td>
+<td>1</td><td>-</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_4_4" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Investigate</th>
+<th>7</th><th>FT</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_4_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Interrogate</td>
+<td>4</td><td>CF</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_4_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Search</td>
+<td>4</td><td>FT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_4_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Track</td>
+<td>4</td><td>F</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_4_5" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Resolve</th>
+<th>5</th><th>-</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_5_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Mental resolve</td>
+<td>3</td><td>-</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_5_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Physical resolve</td>
+<td>3</td><td>-</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_4_6" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Street Smart</th>
+<th>5</th><th>F</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_6_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Criminal elements</td>
+<td>3</td><td>F</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_6_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Street knowledge</td>
+<td>3</td><td>F</td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_4_7" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Teach</th>
+<th>5</th><th>DT</th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_7_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_7_0_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>3</td><td>DT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_7_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_7_1_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>3</td><td>DT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_7_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_7_2_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>3</td><td>DT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_7_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_7_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>3</td><td>DT</td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_4_7_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><input type="text" name="s_4_7_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"> <font color="#0066FF">[specific]</font></td>
+<td>3</td><td>DT</td>
+</tr>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<!-- PANEL 5 — PERSONALITY                                        -->
+<!-- ============================================================ -->
+<div id="panel-5" style="display:none">
+<table>
+<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th><th>Enhance Another Skill:</th></tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_5_0" onClick="set_broad_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()">Culture</th>
+<th>5</th><th>D</th><th></th>
+</tr>
+<tr>
+<td width=15><br></td>
+<td><select name="s_5_0_0" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Diplomacy</td>
+<td>3</td><td>D</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_0_1" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_1_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td>2</td><td>D</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_0_2" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_2_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td>2</td><td>D</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_0_3" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_3_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td>2</td><td>D</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_0_4" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_4_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td>2</td><td>D</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_0_5" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_5_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td>2</td><td>D</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_0_6" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">First encounter</font></td>
+<td>3</td><td>D</td><td></td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_5_1" onClick="set_broad_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()">Deception</th>
+<th>5</th><th>DF</th><th></th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_1_0" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Bluff</td>
+<td>3</td><td>DF</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_1_1" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Bribe</td>
+<td>3</td><td>DF</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_1_2" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Gamble</td>
+<td>3</td><td>DF</td><td></td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_5_2" onClick="set_broad_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()">Entertainment</th>
+<th>4</th><th>DF</th><th></th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_2_0" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Act</td>
+<td>2</td><td>DF</td>
+<td><select name="s_5_2_0_s_0" onChange="set_enhance_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"><option>MMMMMMMMMMMMMMMMMMMM<option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_2_1" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Dance</td>
+<td>2</td><td>DF</td>
+<td><select name="s_5_2_1_s_0" onChange="set_enhance_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"><option>MMMMMMMMMMMMMMMMMMMM<option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_2_2" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Musical instrument</font></td>
+<td>2</td><td>DF</td>
+<td><select name="s_5_2_2_s_0" onChange="set_enhance_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"><option>MMMMMMMMMMMMMMMMMMMM<option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_2_3" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Sing</td>
+<td>2</td><td>DF</td>
+<td><select name="s_5_2_3_s_0" onChange="set_enhance_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"><option>MMMMMMMMMMMMMMMMMMMM<option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_5_3" onClick="set_broad_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()">Interaction</th>
+<th>3</th><th>-</th><th></th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_3_0" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Bargain</td>
+<td>3</td><td>DT</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_3_1" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Charm</td>
+<td>3</td><td>DF</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_3_2" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Interview</td>
+<td>3</td><td>DF</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_3_3" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Intimidate</td>
+<td>3</td><td>C</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_3_4" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Seduce</td>
+<td>3</td><td>DF</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_3_5" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
+<td>Taunt</td>
+<td>2</td><td>-</td><td></td>
+</tr>
+<tr class="broad-row">
+<th colspan=3><input type="checkbox" name="s_5_4" onClick="set_broad_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()">Leadership</th>
+<th>4</th><th>-</th><th></th>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_4_0" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td>Command</td>
+<td>4</td><td>CD</td><td></td>
+</tr>
+<tr>
+<td></td>
+<td><select name="s_5_4_1" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
+<td><font color="#0066FF">Inspire</font></td>
+<td>4</td><td>CD</td><td></td>
+</tr>
+</table>
+</div>
+
+</form>
+</div>
+
+</body>
 </html>
