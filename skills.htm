@@ -75,7 +75,7 @@ body {
 }
 
 /* ---- Skill tables ---- */
-table { border-collapse: collapse; }
+table { border-collapse: collapse; table-layout: fixed; width: 100%; }
 th {
   text-align: left;
   padding: 4px 6px;
@@ -89,8 +89,10 @@ td {
   vertical-align: middle;
   white-space: nowrap;
 }
+/* Cost and Pr. in data rows (td 4 and 5) */
 td:nth-child(4), td:nth-child(5) { text-align: center; }
-th:nth-child(4), th:nth-child(5) { text-align: center; }
+/* Cost and Pr. in header row and broad-skill rows (th 2 and 3, after colspan=3 first th) */
+th:nth-child(2), th:nth-child(3) { text-align: center; }
 
 input[type="checkbox"] {
   width: 14px; height: 14px;
@@ -168,7 +170,8 @@ window.onload = function() { showTab(0); };
 <!-- ============================================================ -->
 <div id="panel-0">
 <table>
-<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<colgroup><col style="width:16px"><col style="width:50px"><col><col style="width:52px"><col style="width:40px"></colgroup>
+<tr><th colspan=3>Skill Name</th><th>Cost</th><th>Pr.</th></tr>
 <tr class="broad-row">
 <th colspan=3><input type="checkbox" name="s_0_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Armor Operation</th>
 <th>7</th><th>C</th>
@@ -299,7 +302,8 @@ window.onload = function() { showTab(0); };
 <!-- ============================================================ -->
 <div id="panel-1" style="display:none">
 <table>
-<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<colgroup><col style="width:16px"><col style="width:50px"><col><col style="width:52px"><col style="width:40px"></colgroup>
+<tr><th colspan=3>Skill Name</th><th>Cost</th><th>Pr.</th></tr>
 <tr class="broad-row">
 <th colspan=3><input type="checkbox" name="s_1_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Acrobatics</th>
 <th>7</th><th>F</th>
@@ -596,7 +600,8 @@ window.onload = function() { showTab(0); };
 <!-- ============================================================ -->
 <div id="panel-2" style="display:none">
 <table>
-<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<colgroup><col style="width:16px"><col style="width:50px"><col><col style="width:52px"><col style="width:40px"></colgroup>
+<tr><th colspan=3>Skill Name</th><th>Cost</th><th>Pr.</th></tr>
 <tr class="broad-row">
 <th colspan=3><input type="checkbox" name="s_2_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Movement</th>
 <th>3</th><th>-</th>
@@ -653,7 +658,8 @@ window.onload = function() { showTab(0); };
 <!-- ============================================================ -->
 <div id="panel-3" style="display:none">
 <table>
-<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<colgroup><col style="width:16px"><col style="width:50px"><col><col style="width:52px"><col style="width:40px"></colgroup>
+<tr><th colspan=3>Skill Name</th><th>Cost</th><th>Pr.</th></tr>
 <tr class="broad-row">
 <th colspan=3><input type="checkbox" name="s_3_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Business</th>
 <th>4</th><th>D</th>
@@ -1104,7 +1110,8 @@ window.onload = function() { showTab(0); };
 <!-- ============================================================ -->
 <div id="panel-4" style="display:none">
 <table>
-<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th></tr>
+<colgroup><col style="width:16px"><col style="width:50px"><col><col style="width:52px"><col style="width:40px"></colgroup>
+<tr><th colspan=3>Skill Name</th><th>Cost</th><th>Pr.</th></tr>
 <tr class="broad-row">
 <th colspan=3><input type="checkbox" name="s_4_0" onClick="set_broad_skill_cookie(this.name); window.opener.chargen(); update_skill_points()">Administration</th>
 <th>4</th><th>D</th>
@@ -1283,7 +1290,8 @@ window.onload = function() { showTab(0); };
 <!-- ============================================================ -->
 <div id="panel-5" style="display:none">
 <table>
-<tr><th colspan=3>Skill Name</th><th width=50>Cost</th><th width=50>Pr.</th><th>Enhance Another Skill:</th></tr>
+<colgroup><col style="width:16px"><col style="width:50px"><col><col style="width:52px"><col style="width:40px"><col></colgroup>
+<tr><th colspan=3>Skill Name</th><th>Cost</th><th>Pr.</th><th>Enhance Another Skill:</th></tr>
 <tr class="broad-row">
 <th colspan=3><input type="checkbox" name="s_5_0" onClick="set_broad_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()">Culture</th>
 <th>5</th><th>D</th><th></th>
