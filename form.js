@@ -2922,6 +2922,7 @@ function chargen()
 	d.write(h)
 	d.close()
 	sum_attributes()
+	try { parent.frames[2].update_mutant_link() } catch(e) {}
 }
 function write_achievement_benefits()
 {

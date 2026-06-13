@@ -15,13 +15,14 @@
 <script src="form.js">
 </script>
 <script language="Javascript">
-function check_for_mutant()
+function update_mutant_link()
 {
-  var f = parent.frames[0].document.forms[0];
-  if (get_species(f) == 'Mutant')
-    window.open('mutant.htm', 'mutant', 'menubar,resizable,status');
-  else
-    alert('You must be a mutant to view mutations!');
+  try {
+    var f = parent.frames[0].document.forms[0];
+    var isMutant = get_species(f) === 'Mutant';
+    document.getElementById('mutant-link').style.display = isMutant ? '' : 'none';
+    document.getElementById('mutant-sep').style.display  = isMutant ? '' : 'none';
+  } catch(e) {}
 }
 </script>
 <style>
@@ -62,11 +63,9 @@ a:hover {
 }
 </style>
 </head>
-<body>
+<body onLoad="update_mutant_link()">
   <a href="javascript:void(0)" onclick="window.open('skills.htm','skills','resizable,status')">Skills</a>
-  <span class="sep">|</span>
-  <a href="javascript:void(0)" onclick="check_for_mutant()">Mutations</a>
-  <span class="sep">|</span>
-  <a href="readme.htm" target="_blank">Readme</a>
+  <span class="sep" id="mutant-sep" style="display:none">|</span>
+  <a id="mutant-link" href="javascript:void(0)" onclick="window.open('mutant.htm','mutant','menubar,resizable,status')" style="display:none">Mutations</a>
 </body>
 </html>
