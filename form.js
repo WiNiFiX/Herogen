@@ -1226,8 +1226,6 @@ function set_value(index, value)
 		if (isNaN(value))
 			value = 0
 		eval('f.i_' + index + '[' + value + '].checked = true')
-		if (index == 9 && value == 2)
-			document.kaboom.src = 'kaboom.gif'
 	}
 	else if (selections.indexOf('|' + index + '|') != -1)
 	{
@@ -1611,8 +1609,21 @@ function chargen()
 	h += '<html>\n'
 	h += '<head>\n'
 	h += '<title>ALTERNITY Science Fiction Roleplaying Game Hero Sheet</title>\n'
+	h += '<style>\n'
+	h += '* { box-sizing: border-box; }\n'
+	h += 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; font-size: 13px; color: #0f172a; background: #f8fafc; margin: 8px 14px; }\n'
+	h += 'table { border-collapse: collapse; }\n'
+	h += 'h2, h3 { font-family: inherit; color: #0f172a; font-size: 18px; font-weight: 700; margin: 0 0 6px; }\n'
+	h += 'hr { border: none; border-top: 1px solid #e2e8f0; margin: 10px 0; }\n'
+	h += 'font[color="green"] { color: #15803d !important; font-weight: 700; }\n'
+	h += 'tr[bgcolor="#CCCCCC"] { background-color: #f1f5f9 !important; }\n'
+	h += 'td[bgcolor="#CCCCCC"] { background-color: #f1f5f9 !important; }\n'
+	h += 'td[bgcolor="white"] { background-color: #ffffff !important; }\n'
+	h += 'td[bgcolor="black"] { background-color: #1e293b !important; }\n'
+	h += 'td[bgcolor="#00FF00"], th[bgcolor="#00FF00"] { background-color: #dcfce7 !important; color: #166534 !important; }\n'
+	h += '</style>\n'
 	h += '</head>\n'
-	h += '<body bgcolor="white">\n'
+	h += '<body>\n'
 	if (font == '')
 		h += '<h2>A<font size="-1">LTERNITY</font> Science Fiction Roleplaying Game Hero Sheet</font></h2>\n'
 	else
