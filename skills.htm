@@ -131,6 +131,9 @@ font[color="#0066FF"] { color: #2563eb; font-weight: 600; }
 
 /* alternating row shading */
 tr.broad-row th { background: #dbeafe; }
+
+/* Fixed-width label before a text input (e.g. Air vehicle:, Land vehicle:) */
+.sk-label { display: inline-block; min-width: 115px; vertical-align: middle; }
 </style>
 <script>
 function showTab(broad) {
@@ -394,7 +397,7 @@ window.onload = function() { showTab(0); };
 <tr>
 <td></td>
 <td><select name="s_1_1_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td>Prestidigitation</td>
+<td>Prestidigitation (sleight of hand.)</td>
 <td>3</td><td>D</td>
 </tr>
 <tr class="broad-row">
@@ -476,121 +479,121 @@ window.onload = function() { showTab(0); };
 <tr>
 <td></td>
 <td><select name="s_1_5_0" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_0_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Air vehicle:</font></span> <input type="text" name="s_1_5_0_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_1" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_1_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Air vehicle:</font></span> <input type="text" name="s_1_5_1_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_2" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_2_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Air vehicle:</font></span> <input type="text" name="s_1_5_2_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Air vehicle:</font></span> <input type="text" name="s_1_5_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Air vehicle:</font> <input type="text" name="s_1_5_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Air vehicle:</font></span> <input type="text" name="s_1_5_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Land vehicle: <input type="text" name="s_1_5_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Land vehicle:</span> <input type="text" name="s_1_5_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Land vehicle: <input type="text" name="s_1_5_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Land vehicle:</span> <input type="text" name="s_1_5_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_7" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Land vehicle: <input type="text" name="s_1_5_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Land vehicle:</span> <input type="text" name="s_1_5_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_8" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Land vehicle: <input type="text" name="s_1_5_8_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Land vehicle:</span> <input type="text" name="s_1_5_8_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_9" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Land vehicle: <input type="text" name="s_1_5_9_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Land vehicle:</span> <input type="text" name="s_1_5_9_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_10" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_10_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Space vehicle:</font></span> <input type="text" name="s_1_5_10_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_11" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_11_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Space vehicle:</font></span> <input type="text" name="s_1_5_11_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_12" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_12_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Space vehicle:</font></span> <input type="text" name="s_1_5_12_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_13" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_13_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Space vehicle:</font></span> <input type="text" name="s_1_5_13_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_14" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Space vehicle:</font> <input type="text" name="s_1_5_14_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Space vehicle:</font></span> <input type="text" name="s_1_5_14_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>5</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_15" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Water vehicle: <input type="text" name="s_1_5_15_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Water vehicle:</span> <input type="text" name="s_1_5_15_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_16" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Water vehicle: <input type="text" name="s_1_5_16_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Water vehicle:</span> <input type="text" name="s_1_5_16_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_17" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Water vehicle: <input type="text" name="s_1_5_17_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Water vehicle:</span> <input type="text" name="s_1_5_17_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_18" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Water vehicle: <input type="text" name="s_1_5_18_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Water vehicle:</span> <input type="text" name="s_1_5_18_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_1_5_19" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td>Water vehicle: <input type="text" name="s_1_5_19_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label">Water vehicle:</span> <input type="text" name="s_1_5_19_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 </table>
@@ -752,31 +755,31 @@ window.onload = function() { showTab(0); };
 <tr>
 <td></td>
 <td><select name="s_3_3_3" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Language:</font></span> <input type="text" name="s_3_3_3_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>1</td><td>-</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_3_3_4" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Language:</font></span> <input type="text" name="s_3_3_4_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>1</td><td>-</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_3_3_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Language:</font></span> <input type="text" name="s_3_3_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>1</td><td>-</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_3_3_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Language:</font></span> <input type="text" name="s_3_3_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>1</td><td>-</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_3_3_7" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option>1<option>2<option>3<option>4<option>5<option>6<option>7<option>8<option>9<option>10<option>11<option>12</select></td>
-<td><font color="#0066FF">Language:</font> <input type="text" name="s_3_3_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Language:</font></span> <input type="text" name="s_3_3_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>1</td><td>-</td>
 </tr>
 <tr>
@@ -926,31 +929,31 @@ window.onload = function() { showTab(0); };
 <tr>
 <td></td>
 <td><select name="s_3_6_5" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Xenomedicine:</font></span> <input type="text" name="s_3_6_5_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_3_6_6" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Xenomedicine:</font></span> <input type="text" name="s_3_6_6_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_3_6_7" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Xenomedicine:</font></span> <input type="text" name="s_3_6_7_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_3_6_8" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_8_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Xenomedicine:</font></span> <input type="text" name="s_3_6_8_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_3_6_9" onChange="set_specialty_skill_cookie(this.name); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Xenomedicine:</font> <input type="text" name="s_3_6_9_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Xenomedicine:</font></span> <input type="text" name="s_3_6_9_t" onChange="set_specific_specialty_skill_cookie(this.name); window.opener.chargen()"></td>
 <td>3</td><td>T</td>
 </tr>
 <tr class="broad-row">
@@ -1306,31 +1309,31 @@ window.onload = function() { showTab(0); };
 <tr>
 <td></td>
 <td><select name="s_5_0_1" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_1_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Etiquette:</font></span> <input type="text" name="s_5_0_1_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
 <td>2</td><td>D</td><td></td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_5_0_2" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_2_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Etiquette:</font></span> <input type="text" name="s_5_0_2_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
 <td>2</td><td>D</td><td></td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_5_0_3" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_3_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Etiquette:</font></span> <input type="text" name="s_5_0_3_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
 <td>2</td><td>D</td><td></td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_5_0_4" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_4_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Etiquette:</font></span> <input type="text" name="s_5_0_4_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
 <td>2</td><td>D</td><td></td>
 </tr>
 <tr>
 <td></td>
 <td><select name="s_5_0_5" onChange="set_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen(); update_skill_points()"><option><option><option><option><option><option><option><option><option><option><option><option><option></select></td>
-<td><font color="#0066FF">Etiquette:</font> <input type="text" name="s_5_0_5_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
+<td><span class="sk-label"><font color="#0066FF">Etiquette:</font></span> <input type="text" name="s_5_0_5_t" onChange="set_specific_specialty_skill_cookie(this.name); populate_entertainment(); window.opener.chargen()"></td>
 <td>2</td><td>D</td><td></td>
 </tr>
 <tr>

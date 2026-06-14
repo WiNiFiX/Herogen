@@ -109,6 +109,17 @@ input[type="radio"] {
   width: 15px;
   height: 15px;
 }
+.choice-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 3px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.choice-label input {
+  margin: 0;
+}
 /* Section colour overrides — replace legacy bgcolor attrs */
 th[bgcolor="#00FF00"] {
   background-color: #dcfce7 !important;
@@ -449,7 +460,7 @@ table[border] td { padding: 6px 8px; background: #fff; }
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="p_8" onClick="toggle_perks_flaws(this.name); chargen()">Fists of Iron</th>
-<td align=center><input type="radio" name="p_8_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="p_8_r" onClick="set_perk_flaw_cost(this.name,true)">5</td><td align=center>STR</td><td align=center>Active</td>
+<td align=center><label class="choice-label"><input type="radio" name="p_8_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="p_8_r" onClick="set_perk_flaw_cost(this.name,true)"> 5</label></td><td align=center>STR</td><td align=center>Active</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="p_9" onClick="toggle_perks_flaws(this.name); chargen()">Fortitude</th>
@@ -508,7 +519,7 @@ table[border] td { padding: 6px 8px; background: #fff; }
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="p_20" onClick="toggle_perks_flaws(this.name); chargen()"><i>Vigor</i></th>
-<td align=center><input type="checkbox" name="p_20_r_0" onClick="set_perk_flaw_cost(this.name,true)">2 <input type="checkbox" name="p_20_r_1" onClick="set_perk_flaw_cost(this.name,true)">3 <input type="checkbox" name="p_20_r_2" onClick="set_perk_flaw_cost(this.name,true)">4</td><td align=center>CON</td><td align=center>Active</td>
+<td align=center><label class="choice-label"><input type="checkbox" name="p_20_r_0" onClick="set_perk_flaw_cost(this.name,true)"> 2</label> <label class="choice-label"><input type="checkbox" name="p_20_r_1" onClick="set_perk_flaw_cost(this.name,true)"> 3</label> <label class="choice-label"><input type="checkbox" name="p_20_r_2" onClick="set_perk_flaw_cost(this.name,true)"> 4</label></td><td align=center>CON</td><td align=center>Active</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="p_21" onClick="toggle_perks_flaws(this.name); chargen()">Willpower</th>
@@ -533,7 +544,7 @@ table[border] td { padding: 6px 8px; background: #fff; }
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_2" onClick="toggle_perks_flaws(this.name); chargen()">Clueless</th>
-<td align=center><input type="radio" name="f_2_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_2_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_2_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>INT</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_2_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_2_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_2_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>INT</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_3" onClick="toggle_perks_flaws(this.name); chargen()">Clumsy</th>
@@ -561,7 +572,7 @@ table[border] td { padding: 6px 8px; background: #fff; }
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_9" onClick="toggle_perks_flaws(this.name); chargen()">Infamy</th>
-<td align=center><input type="radio" name="f_9_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_9_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_9_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>PER</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_9_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_9_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_9_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>PER</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_10" onClick="toggle_perks_flaws(this.name); chargen()">Oblivious</th>
@@ -569,15 +580,15 @@ table[border] td { padding: 6px 8px; background: #fff; }
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_11" onClick="toggle_perks_flaws(this.name); chargen()">Obsessed</th>
-<td align=center><input type="radio" name="f_11_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_11_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_11_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>INT</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_11_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_11_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_11_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>INT</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_12" onClick="toggle_perks_flaws(this.name); chargen()">Old Injury</th>
-<td align=center><input type="radio" name="f_12_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_12_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_12_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>STR</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_12_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_12_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_12_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>STR</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_13" onClick="toggle_perks_flaws(this.name); chargen()">Phobia</th>
-<td align=center><input type="radio" name="f_13_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_13_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_13_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>WIL</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_13_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_13_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_13_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>WIL</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_14" onClick="toggle_perks_flaws(this.name); chargen()">Poor Looks</th>
@@ -585,11 +596,11 @@ table[border] td { padding: 6px 8px; background: #fff; }
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_15" onClick="toggle_perks_flaws(this.name); chargen()">Powerful Enemy</th>
-<td align=center><input type="radio" name="f_15_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_15_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_15_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>PER</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_15_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_15_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_15_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>PER</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_16" onClick="toggle_perks_flaws(this.name); chargen()">Primitive</th>
-<td align=center><input type="radio" name="f_16_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_16_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_16_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>INT</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_16_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_16_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_16_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>INT</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_17" onClick="toggle_perks_flaws(this.name); chargen()">Slow</th>
@@ -597,11 +608,11 @@ table[border] td { padding: 6px 8px; background: #fff; }
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_18" onClick="toggle_perks_flaws(this.name); chargen()">Spineless</th>
-<td align=center><input type="radio" name="f_18_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_18_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_18_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>WIL</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_18_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_18_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_18_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>WIL</td>
 </tr>
 <tr>
 <th align=left><input type="checkbox" name="f_19" onClick="toggle_perks_flaws(this.name); chargen()">Temper</th>
-<td align=center><input type="radio" name="f_19_r" onClick="set_perk_flaw_cost(this.name,true)" checked>2 <input type="radio" name="f_19_r" onClick="set_perk_flaw_cost(this.name,true)">4 <input type="radio" name="f_19_r" onClick="set_perk_flaw_cost(this.name,true)">6</td><td align=center>WIL</td>
+<td align=center><label class="choice-label"><input type="radio" name="f_19_r" onClick="set_perk_flaw_cost(this.name,true)" checked> 2</label> <label class="choice-label"><input type="radio" name="f_19_r" onClick="set_perk_flaw_cost(this.name,true)"> 4</label> <label class="choice-label"><input type="radio" name="f_19_r" onClick="set_perk_flaw_cost(this.name,true)"> 6</label></td><td align=center>WIL</td>
 </tr>
 </table>
 <hr>
@@ -1558,17 +1569,17 @@ see &quot;Thrown Weapons,&quot; page 57.
 <tr>
 <th align=left colspan=2><input type="checkbox" name="c_0" onClick="toggle_cyber_gear(this.name); chargen()">BattleKlaw*</th>
 <td align=center>1</td><td align=center>2</td>
-<td align=center><input type="radio" name="c_0_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked>300</td><td align=center><input type="radio" name="c_0_r" onClick="set_cyber_gear_cost(this.name); chargen()">600</td><td align=center><input type="radio" name="c_0_r" onClick="set_cyber_gear_cost(this.name); chargen()">900</td>
+<td align=center><label class="choice-label"><input type="radio" name="c_0_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked> 300</label></td><td align=center><label class="choice-label"><input type="radio" name="c_0_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 600</label></td><td align=center><label class="choice-label"><input type="radio" name="c_0_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 900</label></td>
 </tr>
 <tr>
 <th align=left colspan=2><input type="checkbox" name="c_1" onClick="toggle_cyber_gear(this.name); chargen()">BioArt**</th>
 <td align=center>-</td><td align=center>-</td>
-<td align=center><input type="radio" name="c_1_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked>50</td><td align=center><input type="radio" name="c_1_r" onClick="set_cyber_gear_cost(this.name); chargen()">100</td><td align=center><input type="radio" name="c_1_r" onClick="set_cyber_gear_cost(this.name); chargen()">200</td>
+<td align=center><label class="choice-label"><input type="radio" name="c_1_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked> 50</label></td><td align=center><label class="choice-label"><input type="radio" name="c_1_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 100</label></td><td align=center><label class="choice-label"><input type="radio" name="c_1_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 200</label></td>
 </tr>
 <tr>
 <th align=left colspan=2><input type="checkbox" name="c_2" onClick="toggle_cyber_gear(this.name); chargen()">BioWatch**</th>
 <td align=center>-</td><td align=center>-</td>
-<td align=center><input type="radio" name="c_2_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked>50</td><td align=center><input type="radio" name="c_2_r" onClick="set_cyber_gear_cost(this.name); chargen()">100</td><td align=center><input type="radio" name="c_2_r" onClick="set_cyber_gear_cost(this.name); chargen()">300</td>
+<td align=center><label class="choice-label"><input type="radio" name="c_2_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked> 50</label></td><td align=center><label class="choice-label"><input type="radio" name="c_2_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 100</label></td><td align=center><label class="choice-label"><input type="radio" name="c_2_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 300</label></td>
 </tr>
 <tr>
 <th align=left colspan=7>Body Plating:</th>
@@ -1594,22 +1605,22 @@ see &quot;Thrown Weapons,&quot; page 57.
 <tr>
 <th align=left colspan=2><input type="checkbox" name="c_6" onClick="toggle_cyber_gear(this.name); chargen()">Cyberlimb*</th>
 <td align=center>10</td><td align=center>2</td>
-<td align=center><input type="radio" name="c_6_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked>1000</td><td align=center><input type="radio" name="c_6_r" onClick="set_cyber_gear_cost(this.name); chargen()">2000</td><td align=center><input type="radio" name="c_6_r" onClick="set_cyber_gear_cost(this.name); chargen()">3000</td>
+<td align=center><label class="choice-label"><input type="radio" name="c_6_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked> 1000</label></td><td align=center><label class="choice-label"><input type="radio" name="c_6_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 2000</label></td><td align=center><label class="choice-label"><input type="radio" name="c_6_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 3000</label></td>
 </tr>
 <tr>
 <th align=left colspan=2><input type="checkbox" name="c_7" onClick="toggle_cyber_gear(this.name); chargen()">Cyberoptics*</th>
 <td align=center>-</td><td align=center>1</td>
-<td align=center><input type="radio" name="c_7_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked>500</td><td align=center><input type="radio" name="c_7_r" onClick="set_cyber_gear_cost(this.name); chargen()">1000</td><td align=center><input type="radio" name="c_7_r" onClick="set_cyber_gear_cost(this.name); chargen()">2000</td>
+<td align=center><label class="choice-label"><input type="radio" name="c_7_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked> 500</label></td><td align=center><label class="choice-label"><input type="radio" name="c_7_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 1000</label></td><td align=center><label class="choice-label"><input type="radio" name="c_7_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 2000</label></td>
 </tr>
 <tr>
 <th align=left colspan=2><input type="checkbox" name="c_8" onClick="toggle_cyber_gear(this.name); chargen()">Fast chip*</th>
 <td align=center>-</td><td align=center>2</td>
-<td align=center><input type="radio" name="c_8_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked>1000</td><td align=center><input type="radio" name="c_8_r" onClick="set_cyber_gear_cost(this.name); chargen()">1500</td><td align=center><input type="radio" name="c_8_r" onClick="set_cyber_gear_cost(this.name); chargen()">2000</td>
+<td align=center><label class="choice-label"><input type="radio" name="c_8_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked> 1000</label></td><td align=center><label class="choice-label"><input type="radio" name="c_8_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 1500</label></td><td align=center><label class="choice-label"><input type="radio" name="c_8_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 2000</label></td>
 </tr>
 <tr>
 <th align=left colspan=2><input type="checkbox" name="c_9" onClick="toggle_cyber_gear(this.name); chargen()">MusclePlus*</th>
 <td align=center>2</td><td align=center>2</td>
-<td align=center><input type="radio" name="c_9_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked>1000</td><td align=center><input type="radio" name="c_9_r" onClick="set_cyber_gear_cost(this.name); chargen()">2000</td><td align=center><input type="radio" name="c_9_r" onClick="set_cyber_gear_cost(this.name); chargen()">3000</td>
+<td align=center><label class="choice-label"><input type="radio" name="c_9_r" onClick="set_cyber_gear_cost(this.name); chargen()" checked> 1000</label></td><td align=center><label class="choice-label"><input type="radio" name="c_9_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 2000</label></td><td align=center><label class="choice-label"><input type="radio" name="c_9_r" onClick="set_cyber_gear_cost(this.name); chargen()"> 3000</label></td>
 </tr>
 <tr>
 <th align=left colspan=2><input type="checkbox" name="c_10" onClick="toggle_cyber_gear(this.name); chargen()">Nanocomputer</th>
